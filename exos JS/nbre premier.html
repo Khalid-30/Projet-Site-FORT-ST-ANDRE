@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        var i = 2;
+var k = 2;
+var premiers = [];// contient les nb premiers
+var max = prompt("Maximum:");
+var ok = true;
+while(i < max) {// tester chaque nb
+    ok = true;// remettre ok à true
+    k = 2;// remettre k à 2
+    while(k < i && ok) {// tester si i est divisible par k
+        if(i % k == 0)// si i divisé par k est entier
+            ok = false;// i n'est pas premier
+        k ++;// incrémenter k
+    }
+    if(ok)// si i est premier...
+        premiers.push(i);// on rajoute i dans le tableau
+    i ++;
+}
+alert(premiers);// afficher les nb premiers
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

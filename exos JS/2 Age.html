@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+    <HTML>
+        <HEAD><TITLE>Calcul de l'âge</TITLE>
+        <SCRIPT LANGUAGE="JavaScript">
+        
+        function CheckDate(d) {
+              // Cette fonction vérifie le format JJ/MM/AAAA saisi et la validité de la date.
+              // Le séparateur est défini dans la variable separateur
+              var amin=1850; // année mini
+              var amax=2500; // année maxi
+              var separateur="/"; // separateur entre jour/mois/annee
+              var j=(d.substring(0,2));
+              var m=(d.substring(3,5));
+              var a=(d.substring(6));
+              var ok=1;
+              if ( ((isNaN(j))||(j<1)||(j>31)) && (ok==1) ) {
+                 alert("Le jour n'est pas correct."); ok=0;
+              }
+              if ( ((isNaN(m))||(m<1)||(m>12)) && (ok==1) ) {
+                 alert("Le mois n'est pas correct."); ok=0;
+              }
+              if ( ((isNaN(a))||(a<amin)||(a>amax)) && (ok==1) ) {
+                 alert("L'année n'est pas correcte."); ok=0;
+              }
+              if ( ((d.substring(2,3)!=separateur)||(d.substring(5,6)!=separateur)) && (ok==1) ) {
+                 alert("Les séparateurs doivent être des "+separateur); ok=0;
+              }
+              if (ok==1) {
+                 var d2=new Date(a,m-1,j);
+                 j2=d2.getDate();
+                 m2=d2.getMonth()+1;
+                 a2=d2.getYear();
+                 if (a2<=100) {a2=1900+a2}
+                 if ( (j!=j2)||(m!=m2)||(a!=a2) ) {
+                    alert("La date "+d+" n'existe pas !");
+                    ok=0;
+                 }
+                 ok=d2;
+              }
+              return ok;
+           }
+        
+        function tjs_age(dt) {
+            // Cette fonction retourne une chaîne de type :
+            //  "15 ans et 6 mois"
+            var d=CheckDate(dt)
+            var m=new Date()
+            var age=""; var age_a=0;var age_m=0;
+            
+            if (d!=0) {
+                if (d.getTime()>m.getTime()) {
+                    age="La date de naissance est supérieure à la date du jour !";
+                    document.formage.dt_naissance.focus();
+                }
+                age_a = m.getFullYear()-d.getFullYear();
+                m.setYear(d.getYear());
+                if ((d.getTime()>m.getTime())&&(d.getMonth()-m.getMonth()!=0)) {age_a--;}
+                if (d.getMonth() >= m.getMonth()) {
+                    age_m = 12 - (d.getMonth()-m.getMonth())
+                } else {
+                    age_m = (m.getMonth()-d.getMonth())
+                }
+                if (age_m==12) {age_m=0;}
+                if (age_a==1) { age=age_a+" an"}
+                if (age_a>1) { age=age_a+" ans"}
+                if ((age_a>0)&&(age_m>0)) {age+=" et "}
+                if (age_m>0) {age+=age_m+" mois"}
+                if (age=="") { age="moins de 1 mois"}
+            } else {
+                document.formage.dt_naissance.focus();
+            }
+            return age;
+           
+            
+        }
+        </SCRIPT>
+        </HEAD>
+        
+        <BODY bgcolor="#FFFFFF">
+        <FONT FACE="Arial" SIZE='-1' COLOR="#000099">
+        
+        <CENTER><BIG><B>Calcul de l'âge</B></BIG></CENTER>
+        <BR>
+        
+        <FORM name="formage">
+            Entrez votre date de naissance (JJ/MM/AAAA) : <INPUT type=text name="dt_naissance" size=10 maxlength=10>
+            <INPUT type=button value="Calcul de l'âge" onClick="alert('Age = '+tjs_age(this.form.dt_naissance.value))">
+        </FORM>
+        
+        Ce script contient 2 fonctions :<BR>
+        CheckDate() qui vérifie la validité de la date <BR>
+        tjs_age() qui retourne une chaîne de caractères de type "15 ans et 6 mois" ou "8 mois" ou "1 an"<BR>
+        <BR><BR><BR><BR><BR>
+        <CENTER><A href="http://www.toutjavascript.com"><FONT size="1" face="arial" color="#CCCFFF">Tout JavaScript.com</FONT></A></CENTER>
+        
+        <BR>
+        </FONT>
+        
+        </BODY></HTML>
